@@ -695,7 +695,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -724,6 +723,8 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    name: Attribute.String;
+    mobile: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -788,6 +789,287 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiBookingBooking extends Schema.CollectionType {
+  collectionName: 'bookings';
+  info: {
+    singularName: 'booking';
+    pluralName: 'bookings';
+    displayName: 'booking';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    theatre: Attribute.Relation<
+      'api::booking.booking',
+      'oneToOne',
+      'api::theatre.theatre'
+    >;
+    timeslot: Attribute.Relation<
+      'api::booking.booking',
+      'oneToOne',
+      'api::timeslot.timeslot'
+    >;
+    status: Attribute.Enumeration<['canceled', 'completed', 'pending']> &
+      Attribute.DefaultTo<'pending'>;
+    date: Attribute.Date;
+    extra_seat: Attribute.Integer;
+    total_price: Attribute.Float;
+    price_paid: Attribute.Float;
+    customer_email: Attribute.Email;
+    customer_phone: Attribute.String;
+    customer_name: Attribute.String;
+    total_seats_booked: Attribute.Integer;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::booking.booking',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::booking.booking',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiBookingServiceBookingService extends Schema.CollectionType {
+  collectionName: 'booking_services';
+  info: {
+    singularName: 'booking-service';
+    pluralName: 'booking-services';
+    displayName: 'booking_service';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    booking: Attribute.Relation<
+      'api::booking-service.booking-service',
+      'oneToOne',
+      'api::booking.booking'
+    >;
+    service_detail: Attribute.Relation<
+      'api::booking-service.booking-service',
+      'oneToOne',
+      'api::service-detail.service-detail'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::booking-service.booking-service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::booking-service.booking-service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPaymentPayment extends Schema.CollectionType {
+  collectionName: 'payments';
+  info: {
+    singularName: 'payment';
+    pluralName: 'payments';
+    displayName: 'payment';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    booking: Attribute.Relation<
+      'api::payment.payment',
+      'oneToOne',
+      'api::booking.booking'
+    >;
+    order_id: Attribute.String;
+    status: Attribute.Enumeration<['pending', 'success', 'failed']> &
+      Attribute.DefaultTo<'pending'>;
+    pg_order_id: Attribute.String;
+    currency: Attribute.String;
+    amount: Attribute.Float;
+    pg_payment_id: Attribute.String;
+    pg_signature: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::payment.payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::payment.payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiServiceService extends Schema.CollectionType {
+  collectionName: 'services';
+  info: {
+    singularName: 'service';
+    pluralName: 'services';
+    displayName: 'service';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::service.service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::service.service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiServiceDetailServiceDetail extends Schema.CollectionType {
+  collectionName: 'service_details';
+  info: {
+    singularName: 'service-detail';
+    pluralName: 'service-details';
+    displayName: 'service_detail';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    service: Attribute.Relation<
+      'api::service-detail.service-detail',
+      'oneToOne',
+      'api::service.service'
+    >;
+    price: Attribute.Float;
+    photo: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    first_text_name: Attribute.String;
+    second_text_name: Attribute.String;
+    is_eggless: Attribute.Boolean;
+    is_enabled: Attribute.Boolean & Attribute.DefaultTo<true>;
+    notes: Attribute.Text;
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::service-detail.service-detail',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::service-detail.service-detail',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTheatreTheatre extends Schema.CollectionType {
+  collectionName: 'theatres';
+  info: {
+    singularName: 'theatre';
+    pluralName: 'theatres';
+    displayName: 'theatre';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    photo: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    pricing_per_slot: Attribute.Float;
+    partial_payment_amount: Attribute.Float;
+    extra_seat_cost: Attribute.Float;
+    max_extra_seats: Attribute.Integer;
+    num_seats: Attribute.Integer;
+    min_num_people: Attribute.Integer;
+    description: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::theatre.theatre',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::theatre.theatre',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTimeslotTimeslot extends Schema.CollectionType {
+  collectionName: 'timeslots';
+  info: {
+    singularName: 'timeslot';
+    pluralName: 'timeslots';
+    displayName: 'timeslot';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    theatre: Attribute.Relation<
+      'api::timeslot.timeslot',
+      'oneToOne',
+      'api::theatre.theatre'
+    >;
+    start_time: Attribute.Time;
+    end_time: Attribute.Time;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::timeslot.timeslot',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::timeslot.timeslot',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -806,6 +1088,13 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::booking.booking': ApiBookingBooking;
+      'api::booking-service.booking-service': ApiBookingServiceBookingService;
+      'api::payment.payment': ApiPaymentPayment;
+      'api::service.service': ApiServiceService;
+      'api::service-detail.service-detail': ApiServiceDetailServiceDetail;
+      'api::theatre.theatre': ApiTheatreTheatre;
+      'api::timeslot.timeslot': ApiTimeslotTimeslot;
     }
   }
 }

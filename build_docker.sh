@@ -1,0 +1,1 @@
+docker build -t sipndrink_api .

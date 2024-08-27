@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "payments",
+  "info": {
+    "singularName": "payment",
+    "pluralName": "payments",
+    "displayName": "payment"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "booking": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::booking.booking"
+    },
+    "order_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "success",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "pg_order_id": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "float"
+    },
+    "pg_payment_id": {
+      "type": "string"
+    },
+    "pg_signature": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+version: '2'
+services:
+  sipndrink_api:
+    image: sipndrink_api:latest
+    restart: always
+    container_name: "sipndrink_api"
+    env_file: sipndrink.env
+    ports:
+      - 1341:1337
+    volumes:
+      - /root/builds/sipndrink_uploads:/opt/app/public/uploads
+    networks:
+      - sipndrink
+
+  sipndrink_ui:
+    image: sipndrink_ui
+    container_name: "sipndrink_ui"
+    restart: always
+    env_file: sipndrink.env
+    depends_on:
+      - sipndrink_api
+    ports:
+      - 3023:3000
+    networks:
+      - sipndrink
+
+networks:
+  sipndrink:
+    driver: bridge

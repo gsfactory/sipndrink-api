@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "timeslots",
+  "info": {
+    "singularName": "timeslot",
+    "pluralName": "timeslots",
+    "displayName": "timeslot",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "theatre": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theatre.theatre"
+    },
+    "start_time": {
+      "type": "time"
+    },
+    "end_time": {
+      "type": "time"
+    }
+  }
+}

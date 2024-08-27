@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "theatres",
+  "info": {
+    "singularName": "theatre",
+    "pluralName": "theatres",
+    "displayName": "theatre",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "photo": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "pricing_per_slot": {
+      "type": "float"
+    },
+    "partial_payment_amount": {
+      "type": "float"
+    },
+    "extra_seat_cost": {
+      "type": "float"
+    },
+    "max_extra_seats": {
+      "type": "integer"
+    },
+    "num_seats": {
+      "type": "integer"
+    },
+    "min_num_people": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}

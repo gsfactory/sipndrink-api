@@ -54,6 +54,12 @@
     },
     "total_seats_booked": {
       "type": "integer"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "second_name": {
+      "type": "string"
     }
   }
 }

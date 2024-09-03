@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "business_details",
+  "info": {
+    "singularName": "business-detail",
+    "pluralName": "business-details",
+    "displayName": "business_detail",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "mobile": {
+      "type": "string"
+    }
+  }
+}

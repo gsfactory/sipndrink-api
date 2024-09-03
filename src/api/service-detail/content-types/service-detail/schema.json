@@ -38,7 +38,8 @@
       "type": "string"
     },
     "is_eggless": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "is_enabled": {
       "type": "boolean",

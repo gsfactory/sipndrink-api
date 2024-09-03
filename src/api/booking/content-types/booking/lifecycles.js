@@ -30,7 +30,7 @@ module.exports = {
             time: `${timeslotData.start_time.toString().slice(0, 5)} - ${timeslotData.end_time.toString().slice(0, 5)}`,
             total_price: event.params.data.total_price,
             price_paid: event.params.data.price_paid,
-            link: 'https://admin_link'
+            link: `${process.env.URL}/bookings` || 'http://localhost:3000/bookings'
         };
         console.log('timeslotData', timeslotData);
 

@@ -881,6 +881,39 @@ export interface ApiBookingServiceBookingService extends Schema.CollectionType {
   };
 }
 
+export interface ApiBusinessDetailBusinessDetail extends Schema.CollectionType {
+  collectionName: 'business_details';
+  info: {
+    singularName: 'business-detail';
+    pluralName: 'business-details';
+    displayName: 'business_detail';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    address: Attribute.String;
+    mobile: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::business-detail.business-detail',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::business-detail.business-detail',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPaymentPayment extends Schema.CollectionType {
   collectionName: 'payments';
   info: {
@@ -974,7 +1007,7 @@ export interface ApiServiceDetailServiceDetail extends Schema.CollectionType {
     photo: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
     first_text_name: Attribute.String;
     second_text_name: Attribute.String;
-    is_eggless: Attribute.Boolean;
+    is_eggless: Attribute.Boolean & Attribute.DefaultTo<false>;
     is_enabled: Attribute.Boolean & Attribute.DefaultTo<true>;
     notes: Attribute.Text;
     name: Attribute.String;
@@ -1092,6 +1125,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::booking.booking': ApiBookingBooking;
       'api::booking-service.booking-service': ApiBookingServiceBookingService;
+      'api::business-detail.business-detail': ApiBusinessDetailBusinessDetail;
       'api::payment.payment': ApiPaymentPayment;
       'api::service.service': ApiServiceService;
       'api::service-detail.service-detail': ApiServiceDetailServiceDetail;

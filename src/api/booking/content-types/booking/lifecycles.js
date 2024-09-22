@@ -30,7 +30,9 @@ module.exports = {
             time: `${timeslotData.start_time.toString().slice(0, 5)} - ${timeslotData.end_time.toString().slice(0, 5)}`,
             total_price: event.params.data.total_price,
             price_paid: event.params.data.price_paid,
-            link: `${process.env.URL}/bookings` || 'http://localhost:3000/bookings'
+            balance: event.params.data.total_price - event.params.data.price_paid,
+            link: `${process.env.URL}/bookings` || 'http://localhost:3000/bookings',
+            total_seats_booked: event.result.total_seats_booked
         };
         console.log('timeslotData', timeslotData);
 
@@ -43,8 +45,8 @@ module.exports = {
                 booking: booking
             }
         });
-        await emailSender.sendEmail({
-            to: "gorav.singal@gmail.com",
+        emailSender.sendEmail({
+            to: process.env.ADMIN_EMAIL || "gorav.singal@gmail.com",
             emailTemplate: BookingNotificationAdmin,
             resolver: {
                 theater: theater,

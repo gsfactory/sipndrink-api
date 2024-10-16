@@ -1,18 +1,14 @@
 
 const {BookingNotificationCustomer, BookingNotificationAdmin} = require('../../../../../config/email_formats');
 const emailSender = require('../../../../modules/email_sender');
+const whatsapp_sender = require('../../../../modules/whatsapp_sender');
 
 module.exports = {
     async afterCreate(event) {
-        console.log(event.params);
-        console.log(event.result);
-        
         const theaterData = await strapi.entityService.findOne(
             "api::theatre.theatre", 
             event.params.data.theatre,
         );
-
-        console.log('theaterData', theaterData);
 
         const timeslotData = await strapi.entityService.findOne(
             "api::timeslot.timeslot", 
@@ -34,7 +30,6 @@ module.exports = {
             link: `${process.env.URL}/bookings` || 'http://localhost:3000/bookings',
             total_seats_booked: event.result.total_seats_booked
         };
-        console.log('timeslotData', timeslotData);
 
         await emailSender.sendEmail({
             to: event.params.data.customer_email,
@@ -54,6 +49,24 @@ module.exports = {
                 booking: booking
             }
         });
+
+        // send whatsapp messages
+        try {
+            const wParams = [
+                theater.name,
+                booking.total_seats_booked,
+                `${booking.date} at ${booking.time}`,
+                booking.total_price,
+                booking.price_paid,
+                booking.balance,
+                event.result.customer_name,
+                event.result.customer_phone,
+            ];
+            // whatsapp_sender.bookingConfirmedUser(staff[0].mobile, wParams);
+            // whatsapp_sender.bookingConfirmedAdmin(staff[0].mobile, wParams);
+        } catch(error) {
+            console.log(error);
+        }
         console.log('email sent');
     }
 }

@@ -24,6 +24,7 @@ module.exports = {
         const booking = {
             date: event.params.data.date,
             time: `${timeslotData.start_time.toString().slice(0, 5)} - ${timeslotData.end_time.toString().slice(0, 5)}`,
+            discount: event.params.data.discount,
             total_price: event.params.data.total_price,
             price_paid: event.params.data.price_paid,
             balance: event.params.data.total_price - event.params.data.price_paid,

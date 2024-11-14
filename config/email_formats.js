@@ -8,6 +8,7 @@ const BookingNotificationCustomer = {
         <p>Theater Booked: <%= theater.name %></p>
         <p>Seats Reserved: <%= booking.total_seats_booked %></p>
         <p>Date and time: <%= booking.date %> at <%= booking.time %></p>
+        <p>Discount: <%= booking.discount %></p>
         <p>Total Amount: <%= booking.total_price %></p>
         <p>Advance Paid: <%= booking.price_paid %></p>
         <p>Balance Due: <%= booking.balance %></p>
@@ -32,6 +33,7 @@ const BookingNotificationAdmin = {
         <p></p>
         <p>Theater: <%= theater.name %></p>
         <p>Date and time: <%= booking.date %> at <%= booking.time %></p>
+        <p>Discount: <%= booking.discount %></p>
         <p>Total price: <%= booking.total_price %></p>
         <p>Amount paid: <%= booking.price_paid %></p>
         <p>For more details, goto: <%= booking.link %></p>

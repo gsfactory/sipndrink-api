@@ -46,6 +46,9 @@
     },
     "description": {
       "type": "richtext"
+    },
+    "initial_price": {
+      "type": "float"
     }
   }
 }

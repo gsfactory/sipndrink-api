@@ -60,6 +60,9 @@
     },
     "second_name": {
       "type": "string"
+    },
+    "discount": {
+      "type": "decimal"
     }
   }
 }

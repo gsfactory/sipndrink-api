@@ -823,6 +823,7 @@ export interface ApiBookingBooking extends Schema.CollectionType {
     total_seats_booked: Attribute.Integer;
     first_name: Attribute.String;
     second_name: Attribute.String;
+    discount: Attribute.Decimal;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -907,6 +908,37 @@ export interface ApiBusinessDetailBusinessDetail extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::business-detail.business-detail',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCouponCoupon extends Schema.CollectionType {
+  collectionName: 'coupons';
+  info: {
+    singularName: 'coupon';
+    pluralName: 'coupons';
+    displayName: 'coupon';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    discount: Attribute.Integer;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::coupon.coupon',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::coupon.coupon',
       'oneToOne',
       'admin::user'
     > &
@@ -1050,6 +1082,7 @@ export interface ApiTheatreTheatre extends Schema.CollectionType {
     num_seats: Attribute.Integer;
     min_num_people: Attribute.Integer;
     description: Attribute.RichText;
+    initial_price: Attribute.Float;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1126,6 +1159,7 @@ declare module '@strapi/types' {
       'api::booking.booking': ApiBookingBooking;
       'api::booking-service.booking-service': ApiBookingServiceBookingService;
       'api::business-detail.business-detail': ApiBusinessDetailBusinessDetail;
+      'api::coupon.coupon': ApiCouponCoupon;
       'api::payment.payment': ApiPaymentPayment;
       'api::service.service': ApiServiceService;
       'api::service-detail.service-detail': ApiServiceDetailServiceDetail;

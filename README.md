@@ -1,92 +1,49 @@
-# 🚀 Getting started with Strapi
+# Backend APIs
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+## Database
+- Its a mysql database
+- take database dump and import
 
-### `develop`
+## Prepare the property file or environment
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
+```sh
+URL=https://www.sipnscreen.com
+NODE_ENV=production
+DATABASE_CLIENT=mysql
+
+DATABASE_HOST=
+DATABASE_PORT=3306
+DATABASE_USERNAME=
+DATABASE_PASSWORD=
+DATABASE_NAME=sipnscreen
+
+ADMIN_JWT_SECRET=
+API_TOKEN_SALT=
+TRANSFER_TOKEN_SALT=
+APP_KEYS=
+JWT_SECRET=
+
+EMAIL_DEFAULT_FROM=admin@sipnscreen.com
+EMAIL_REPLY_TO=admin@sipnscreen.com
+
+AWS_SES_KEY=
+AWS_SES_SECRET=
+AWS_REGION=us-east-1
+
+ADMIN_EMAIL=admin@sipnscreen.com
+
+RAZORPAY_SECRET=
+RAZORPAY_KEY_ID=
+RZ_WEBHOOK_SECRET=
+WHATSAPP_TOKEN=abc
 
 ```
-npm run develop
-# or
-yarn develop
-```
 
-### `start`
-
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
-
-```
-npm run start
-# or
-yarn start
-```
-
-### `build`
-
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
-
-```
+## Steps to run
+```sh
+export NODE_ENV=production
+npm install --only=production
 npm run build
-# or
-yarn build
+npm run start
 ```
-
-## Models
-
-user
-- id
-- name
-- mobile
-
-theatre
-- id
-- name
-- description
-- photo
-- pricing per slot
-- partial_payment_amount
-- extra_seat_cost
-- max_extra_seats
-- num_seats
-
-time_slots (static table)
-- id
-- theatre_id
-- start_time
-- end_time
-
-bookings
-- id
-- theatre_id
-- time_slot_id
-- status (booked, cancelled, pending, completed)
-- date
-- extra_seats
-- total_price
-- price_paid
-- customer_email
-- customer_phone
-- customer_name
-
-booking_services
-- id
-- booking_id
-- service_detail_id (pending)
-
-Services
-- id
-- name (decorations, extra-decorations, flowers, food, cake, photogrgaphy)
-
-ServiceDetail
-- id
-- service-id
-- price
-- photo
-- first text
-- second text
-- is_eggless (only for cakes)
-- num_photos (only for photographer)
-- is_enabled (true/false)
-- notes
 

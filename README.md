@@ -47,3 +47,6 @@ npm run build
 npm run start
 ```
 
+## Important
+When you run it, make sure it is accessible on `https://www.sipnscreen.com/gapi`, so that UI project can talk to this.
+
